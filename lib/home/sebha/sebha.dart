@@ -7,6 +7,11 @@ class Sebhatab extends StatefulWidget {
 
 class _SebhatabState extends State<Sebhatab> {
   double turns = 0;
+  int counter = 0;
+
+  void incrementCounter() {
+    counter++;
+  }
 
   @override
   Widget build(BuildContext context) {
