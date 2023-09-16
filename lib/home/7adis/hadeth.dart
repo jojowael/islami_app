@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project1/my_theme.dart';
+import 'package:project1/providers/app_config_provider.dart';
+import 'package:provider/provider.dart';
 
 class HadethTab extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class _HadethTabState extends State<HadethTab> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     if (ahadethList.isEmpty) {
       loadHadethField();
     }
@@ -23,7 +27,12 @@ class _HadethTabState extends State<HadethTab> {
         ),
         Text(
           'Hadeth Name',
-          style: Theme.of(context).textTheme.titleMedium,
+          style: provider.isDarkMode()
+              ? Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: MyTheme.whiteColor)
+              : Theme.of(context).textTheme.titleMedium,
         ),
         Divider(
           color: Theme.of(context).primaryColor,
@@ -31,13 +40,19 @@ class _HadethTabState extends State<HadethTab> {
         ),
         ahadethList.isEmpty
             ? Center(
-                child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-              ))
+            child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            ))
             : Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    return Text(ahadethList[index].title);
+                    return Text(ahadethList[index].title,
+                        style: provider.isDarkMode()
+                            ? Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: MyTheme.whiteColor)
+                            : Theme.of(context).textTheme.titleSmall);
                   },
                   itemCount: ahadethList.length,
                 ),
