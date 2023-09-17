@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:project1/providers/app_config_provider.dart';
+import 'package:project1/settings/language_bottom_sheet.dart';
 import 'package:project1/settings/theme_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +20,7 @@ class _SettingsTabState extends State<SettingsTab> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Themeing',
+            AppLocalizations.of(context)!.theme,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           SizedBox(
@@ -37,14 +39,49 @@ class _SettingsTabState extends State<SettingsTab> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    provider.isDarkMode() ? 'Dark' : "Light",
+                    provider.isDarkMode()
+                        ? AppLocalizations.of(context)!.dark
+                        : AppLocalizations.of(context)!.light,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Icon(Icons.arrow_drop_down)
                 ],
               ),
             ),
-          )
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            AppLocalizations.of(context)!.language,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          InkWell(
+            onTap: () {
+              showLanguageBottomSheet();
+            },
+            child: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(15)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    provider.appLanguage == 'en'
+                        ? AppLocalizations.of(context)!.english
+                        : AppLocalizations.of(context)!.arabic,
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Icon(Icons.arrow_drop_down)
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -53,5 +90,10 @@ class _SettingsTabState extends State<SettingsTab> {
   void showThemeBottomSheet() {
     showModalBottomSheet(
         context: context, builder: ((context) => ThemeBottomSheet()));
+  }
+
+  void showLanguageBottomSheet() {
+    showModalBottomSheet(
+        context: context, builder: (context) => LanguageBottomSheet());
   }
 }

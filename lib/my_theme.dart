@@ -51,7 +51,7 @@ class MyTheme {
       titleMedium: TextStyle(
           fontSize: 25, fontWeight: FontWeight.w500, color: whiteColor),
       titleSmall: TextStyle(
-          fontSize: 25, fontWeight: FontWeight.w400, color: whiteColor),
+          fontSize: 25, fontWeight: FontWeight.w400, color: yellowColor),
     ),
   );
 }
